@@ -8,6 +8,7 @@ import Foundation
 import NIO
 import NIOHTTP1
 import AsyncHTTPClient
+import NIOFoundationCompat
 
 var defaultEncoder: JSONEncoder = {
 	let encoder = JSONEncoder()
@@ -105,4 +106,15 @@ public extension EventLoopFuture {
 	func delay (_ time: TimeAmount) -> EventLoopFuture<Value> {
 		flatMap { value in self.eventLoop.scheduleTask(in: time) { value }.futureResult }
 	}
+}
+
+extension Data {
+
+    /// Creates a `Data` from a given `ByteBuffer`. The entire readable portion of the buffer will be read.
+    /// - parameter buffer: The buffer to read.
+    public init(buffer: ByteBuffer, byteTransferStrategy: ByteBuffer.ByteTransferStrategy = .automatic) {
+        var buffer = buffer
+        self = buffer.readData(length: buffer.readableBytes, byteTransferStrategy: byteTransferStrategy)!
+    }
+
 }
