@@ -303,7 +303,7 @@ public enum OperationError: Error {
 	case outOfBounds
 	case invalidMove
 }
-public protocol AtomicSheetDelegate: class {
+public protocol AtomicSheetDelegate: AnyObject {
 	func uploadWillBegin (_ sheet: String, operations: [Spreadsheet.Operation])
 	func uploadDidSucceed (_ sheet: String, operations: [Spreadsheet.Operation])
 	func uploadDidFail (_ sheet: String, operations: [Spreadsheet.Operation], error: Error)

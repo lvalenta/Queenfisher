@@ -26,7 +26,7 @@ private var client: HTTPClient?
 
 func getHttpClient () -> HTTPClient {
 	if client == nil {
-		client = HTTPClient(eventLoopGroupProvider: .createNew)
+        client = HTTPClient(eventLoopGroupProvider: .singleton)
 	}
 	return client!
 }
